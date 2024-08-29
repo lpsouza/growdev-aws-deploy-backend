@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: echo "No tests yet" # Placeholder for actual tests
-
       - name: Zip for deployment
         run: zip -r backend.zip * .[^.]*
 
@@ -34,6 +31,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-1'
         run: |
-          aws s3 cp backend.zip s3://your-bucket-name/backend.zip
-          aws elasticbeanstalk create-application-version --application-name YourBackendApp --version-label v1 --source-bundle S3Bucket="your-bucket-name",S3Key="backend.zip"
-          aws elasticbeanstalk update-environment --application-name YourBackendApp --environment-name YourBackendEnv --version-label v1
+          aws s3 cp backend.zip s3://lpsouza-artifact-deploy/backend.zip
+          aws elasticbeanstalk create-application-version --application-name AppBackend --version-label v1 --source-bundle S3Bucket="lpsouza-artifact-deploy",S3Key="backend.zip"
+          aws elasticbeanstalk update-environment --application-name AppBackend --environment-name AppBackendEnv --version-label v1
