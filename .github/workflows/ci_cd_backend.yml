@@ -1,0 +1,39 @@
+
+name: CI/CD Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: echo "No tests yet" # Placeholder for actual tests
+
+      - name: Zip for deployment
+        run: zip -r backend.zip * .[^.]*
+
+      - name: Deploy to Elastic Beanstalk
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
+        run: |
+          aws s3 cp backend.zip s3://your-bucket-name/backend.zip
+          aws elasticbeanstalk create-application-version --application-name YourBackendApp --version-label v1 --source-bundle S3Bucket="your-bucket-name",S3Key="backend.zip"
+          aws elasticbeanstalk update-environment --application-name YourBackendApp --environment-name YourBackendEnv --version-label v1
