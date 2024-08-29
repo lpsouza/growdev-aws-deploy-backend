@@ -2,10 +2,13 @@
 name: CI/CD Backend
 
 on:
-  push:
-    branches:
-      - main
-
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger on push to main branch
+  # push:
+  #   branches:
+  #     - main
+  
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
