@@ -32,5 +32,5 @@ jobs:
           AWS_REGION: 'us-east-1'
         run: |
           aws s3 cp backend.zip s3://lpsouza-artifact-deploy/backend.zip
-          aws elasticbeanstalk create-application-version --application-name AppBackend --version-label v3 --source-bundle S3Bucket="lpsouza-artifact-deploy",S3Key="backend.zip"
-          aws elasticbeanstalk update-environment --application-name AppBackend --environment-name AppBackendEnv --version-label v3
+          aws elasticbeanstalk create-application-version --application-name AppBackend --version-label v4 --source-bundle S3Bucket="lpsouza-artifact-deploy",S3Key="backend.zip"
+          aws elasticbeanstalk update-environment --application-name AppBackend --environment-name AppBackendEnv --version-label v4
